@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orca Engineering UG – Engineering. Consulting. Innovation.</title>
+<meta name="description" content="Orca Engineering UG – Führendes Beratungshaus für CfK & Leichtbau, Unternehmensrestrukturierung und individuelle Softwarelösungen. Made in Germany.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Jost:wght@300;400;500;600&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07080F;
+    --bg2: #0C0E18;
+    --bg3: #111422;
+    --accent: #00C9A7;
+    --accent2: #C4A24A;
+    --text: #DDE0EC;
+    --text-muted: #6E7394;
+    --border: rgba(255,255,255,0.06);
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Jost', sans-serif;
+    --font-mono: 'Syne Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+  /* ─── UTILITY ─── */
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 2rem; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 999;
+    padding: 1.4rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(7,8,15,0.82);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.8rem;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    position: relative;
+  }
+  .nav-logo-mark svg { width: 36px; height: 36px; }
+  .nav-logo-text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    letter-spacing: 0.04em;
+  }
+  .nav-logo-text span { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.55rem 1.4rem;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .nav-cta:hover { background: #00b596; }
+  .hamburger { display: none; cursor: pointer; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: 0.3s; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 100px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,201,167,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(196,162,74,0.05) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-noise {
+    position: absolute; inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+  /* Carbon fiber diagonal stripe */
+  .hero-stripe {
+    position: absolute;
+    top: -20%; right: -5%;
+    width: 55%; height: 140%;
+    background: linear-gradient(135deg, rgba(0,201,167,0.04) 0%, transparent 50%);
+    border-left: 1px solid rgba(0,201,167,0.12);
+    transform: skewX(-8deg);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 900px;
+  }
+  .hero-eyebrow {
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both 0.1s;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.8s ease both 0.25s;
+  }
+  .hero-title .line { display: block; }
+  .hero-title .accent { color: var(--accent); }
+  .hero-title .gold { color: var(--accent2); }
+  .hero-sub {
+    font-size: 1.08rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin-bottom: 2.8rem;
+    line-height: 1.8;
+    animation: fadeUp 0.8s ease both 0.4s;
+  }
+  .hero-actions {
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease both 0.55s;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: #00b596; transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s ease both 0.7s;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .hero-stat-num span { color: var(--accent); }
+  .hero-stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ─── TICKER ─── */
+  .ticker-wrap {
+    background: var(--accent);
+    padding: 0.7rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-track {
+    display: inline-flex;
+    animation: ticker 30s linear infinite;
+  }
+  .ticker-item {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bg);
+    padding: 0 3rem;
+    display: inline-flex; align-items: center; gap: 3rem;
+  }
+  .ticker-item::after { content: '◆'; font-size: 0.5rem; }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 8rem 0; }
+  .section-header { margin-bottom: 4.5rem; }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-top: 1rem;
+  }
+  .section-lead {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 540px;
+    margin-top: 1.2rem;
+    line-height: 1.8;
+  }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--bg2); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+  }
+  .service-card {
+    background: var(--bg2);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: var(--bg3); }
+  .service-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+  .service-icon {
+    width: 52px; height: 52px;
+    margin-bottom: 1.8rem;
+    color: var(--accent);
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  .service-features {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .service-features li {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    line-height: 1.6;
+  }
+  .service-features li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.05em;
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--bg); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-visual-main {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-visual-main svg {
+    width: 60%; opacity: 0.15;
+    color: var(--accent);
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -1.5rem; right: -1.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 1.5rem 2rem;
+    z-index: 2;
+  }
+  .about-badge-num {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .about-badge-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+    font-weight: 500;
+  }
+  .about-corner {
+    position: absolute;
+    top: -1.5rem; left: -1.5rem;
+    width: 60px; height: 60px;
+    border-top: 2px solid var(--accent2);
+    border-left: 2px solid var(--accent2);
+  }
+  .about-text p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+  .about-pillars {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .pillar {
+    padding: 1.2rem 1.4rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  .pillar-title {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+  .pillar-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── METRICS ─── */
+  #metrics { background: var(--bg3); padding: 5rem 0; }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .metric {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .metric:last-child { border-right: none; }
+  .metric-num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 3.2rem;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .metric-unit {
+    font-size: 1.6rem;
+    vertical-align: super;
+  }
+  .metric-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.6rem;
+  }
+
+  /* ─── EXPERTISE ─── */
+  #expertise { background: var(--bg); }
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .expertise-sticky { position: sticky; top: 120px; }
+  .expertise-list { display: flex; flex-direction: column; gap: 0; }
+  .expertise-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .expertise-item-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    padding-top: 0.2rem;
+  }
+  .expertise-item-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .expertise-item-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* ─── TECH STACK ─── */
+  .tech-pills {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  .tech-pill {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(0,201,167,0.25);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+  }
+
+  /* ─── PROCESS ─── */
+  #process { background: var(--bg2); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 2.5rem; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .process-step { padding: 0 2rem; }
+  .process-step-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 2px solid var(--accent);
+    position: relative; z-index: 1;
+    margin-bottom: 2rem;
+  }
+  .process-step-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .process-step-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+  .process-step-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--bg); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item {
+    display: flex; gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: rgba(0,201,167,0.08);
+    border: 1px solid rgba(0,201,167,0.2);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+  .contact-item-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+  .contact-item-value {
+    font-size: 0.95rem;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  a.contact-item-value:hover { color: var(--accent); }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .form-input, .form-textarea {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.85rem 1rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.25s;
+    resize: none;
+    width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { min-height: 140px; }
+  .form-submit {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 2px;
+    padding: 0.95rem 2rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex; align-items: center; gap: 0.6rem;
+    width: 100%;
+    justify-content: center;
+  }
+  .form-submit:hover { background: #00b596; transform: translateY(-1px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 4rem 0 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .footer-brand-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-top: 1rem;
+    max-width: 260px;
+  }
+  .footer-col-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-links a {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 2rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .footer-legal {
+    display: flex; gap: 1.5rem;
+  }
+  .footer-legal a {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-legal a:hover { color: var(--accent); }
+
+  /* ─── IMPRESSUM MODAL ─── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(7,8,15,0.95);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    max-width: 600px; width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 3rem;
+    border-radius: 2px;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+  .modal-overlay.open .modal-box { transform: translateY(0); }
+  .modal-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+  .modal-box { position: relative; }
+  .modal-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+  .modal-section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+  }
+  .modal-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  .modal-text a { color: var(--accent); text-decoration: none; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: block; }
+    .services-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .expertise-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes rotateSlow {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4 L36 12 L36 28 L20 36 L4 28 L4 12 Z" stroke="#00C9A7" stroke-width="1.5" fill="none"/>
+        <path d="M20 10 L30 15 L30 25 L20 30 L10 25 L10 15 Z" fill="rgba(0,201,167,0.1)" stroke="#00C9A7" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#00C9A7"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">ORCA <span>ENGINEERING</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Leistungen</a></li>
+    <li><a href="#about">Unternehmen</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#process">Vorgehen</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Projekt anfragen</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-stripe"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="tag">Orca Engineering UG – Duisburg, Deutschland</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line">Engineering.</span>
+        <span class="line accent">Consulting.</span>
+        <span class="line gold">Innovation.</span>
+      </h1>
+      <p class="hero-sub">Wir verbinden tiefe Ingenieursexpertise mit strategischer Unternehmensberatung und modernster Softwareentwicklung – für Kunden, die außergewöhnliche Ergebnisse erwarten.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#services">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 0L8.5 5.5H14L9.75 8.75L11.25 14L7 10.75L2.75 14L4.25 8.75L0 5.5H5.5Z"/></svg>
+          Leistungen entdecken
+        </a>
+        <a class="btn-ghost" href="#contact">Erstgespräch vereinbaren</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">15<span>+</span></div>
+          <div class="hero-stat-label">Jahre Erfahrung</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">80<span>+</span></div>
+          <div class="hero-stat-label">Projekte abgeschlossen</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Kernkompetenzen</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">100<span>%</span></div>
+          <div class="hero-stat-label">Made in Germany</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">CfK & Leichtbau</div>
+    <div class="ticker-item">Unternehmensrestrukturierung</div>
+    <div class="ticker-item">Softwareentwicklung</div>
+    <div class="ticker-item">Individuelle Lösungen</div>
+    <div class="ticker-item">Composites Engineering</div>
+    <div class="ticker-item">Sanierungsberatung</div>
+    <div class="ticker-item">ERP-Systeme</div>
+    <div class="ticker-item">Prototypenbau</div>
+    <div class="ticker-item">CfK & Leichtbau</div>
+    <div class="ticker-item">Unternehmensrestrukturierung</div>
+    <div class="ticker-item">Softwareentwicklung</div>
+    <div class="ticker-item">Individuelle Lösungen</div>
+    <div class="ticker-item">Composites Engineering</div>
+    <div class="ticker-item">Sanierungsberatung</div>
+    <div class="ticker-item">ERP-Systeme</div>
+    <div class="ticker-item">Prototypenbau</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Unsere Kernkompetenzen</span>
+      <h2 class="section-title">Drei Disziplinen.<br>Eine Exzellenz.</h2>
+      <p class="section-lead">Orca Engineering vereint hochspezialisiertes Ingenieurwissen mit betriebswirtschaftlicher Tiefe und technologischer Innovationskraft.</p>
+    </div>
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card reveal">
+        <div class="service-num">01 / CfK & LEICHTBAU</div>
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="48" height="48" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+          <path d="M10 42 L26 10 L42 42 H10Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M18 30 L26 14 L34 30" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <circle cx="26" cy="10" r="2" fill="currentColor"/>
+        </svg>
+        <h3 class="service-title">CfK & Leichtbau­consulting</h3>
+        <p class="service-desc">Von der Materialauswahl über die Laminatauslegung bis zur Serienfertigung – wir begleiten Ihre Composite-Projekte mit fundiertem Ingenieurswissen und jahrelanger Praxis.</p>
+        <ul class="service-features">
+          <li>Bauteilauslegung & FEM-gestützte Simulation</li>
+          <li>Materialauswahl & Harzsystemberatung</li>
+          <li>Prepreg, Infusion, Handlaminat & Autoklav</li>
+          <li>Fertigungsoptimierung & Qualitätssicherung</li>
+          <li>Prototypenbau bis Kleinserie</li>
+          <li>Gewichtsoptimierung für Luft-, Schiff- & Fahrzeugbau</li>
+        </ul>
+      </div>
+      <!-- Card 2 -->
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">02 / RESTRUKTURIERUNG</div>
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="48" height="48" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+          <rect x="10" y="28" width="10" height="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <rect x="21" y="18" width="10" height="24" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <rect x="32" y="10" width="10" height="32" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M10 22 L26 14 L42 8" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/>
+        </svg>
+        <h3 class="service-title">Unternehmens­restrukturierung & Sanierung</h3>
+        <p class="service-desc">Wir analysieren Ihr Unternehmen unvoreingenommen, identifizieren Schwachstellen und entwickeln umsetzbare Konzepte – direkt, pragmatisch und auf Ergebnis ausgerichtet.</p>
+        <ul class="service-features">
+          <li>Liquiditäts- & Finanzrestrukturierung</li>
+          <li>Operatives Turnaround-Management</li>
+          <li>Interimsmanagement & Prozessoptimierung</li>
+          <li>ERP- & Warenwirtschaftsoptimierung</li>
+          <li>Einkaufs- und Lieferkettenreorganisation</li>
+          <li>Begleitung von Insolvenz- und Sanierungsverfahren</li>
+        </ul>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">03 / SOFTWARE & TECH</div>
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="48" height="48" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+          <rect x="8" y="14" width="36" height="26" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M16 24 L20 28 L16 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M24 32 L32 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M8 42 L44 42 L44 46 L8 46 Z" fill="currentColor" opacity="0.1"/>
+        </svg>
+        <h3 class="service-title">Software­entwicklung & Individuelle Lösungen</h3>
+        <p class="service-desc">Maßgeschneiderte Softwarelösungen mit modernster Technologie – von der Idee bis zum produktiven Einsatz. Wir bauen das, was Standardsoftware nicht kann.</p>
+        <ul class="service-features">
+          <li>Web-Applikationen (React, TypeScript, Node.js)</li>
+          <li>ERP- & Produktionsplanungssysteme</li>
+          <li>KI-Integration & Automatisierung</li>
+          <li>Digitale Zwillinge & 3D-Viewer</li>
+          <li>API-Schnittstellen & Systemintegration</li>
+          <li>Mobile-first & Offline-fähige Anwendungen</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div id="metrics">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="metric reveal">
+        <div class="metric-num">15<span class="metric-unit">+</span></div>
+        <div class="metric-label">Jahre Erfahrung</div>
+      </div>
+      <div class="metric reveal reveal-delay-1">
+        <div class="metric-num">80<span class="metric-unit">+</span></div>
+        <div class="metric-label">Abgeschlossene Projekte</div>
+      </div>
+      <div class="metric reveal reveal-delay-2">
+        <div class="metric-num">12<span class="metric-unit">+</span></div>
+        <div class="metric-label">Branchen bedient</div>
+      </div>
+      <div class="metric reveal reveal-delay-3">
+        <div class="metric-num">98<span class="metric-unit">%</span></div>
+        <div class="metric-label">Kundenzufriedenheit</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-corner"></div>
+        <div class="about-visual-main">
+          <svg viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="100,10 190,60 190,120 100,170 10,120 10,60" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <polygon points="100,30 170,65 170,115 100,150 30,115 30,65" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.6"/>
+            <polygon points="100,50 150,72 150,108 100,130 50,108 50,72" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.3"/>
+            <circle cx="100" cy="90" r="6" fill="currentColor"/>
+            <line x1="100" y1="10" x2="100" y2="84" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+            <line x1="190" y1="60" x2="106" y2="90" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+            <line x1="190" y1="120" x2="106" y2="90" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+            <line x1="100" y1="170" x2="100" y2="96" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+            <line x1="10" y1="60" x2="94" y2="90" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+            <line x1="10" y1="120" x2="94" y2="90" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">UG</div>
+          <div class="about-badge-label">Duisburg<br>Deutschland</div>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-1">
+        <span class="tag">Über Orca Engineering</span>
+        <h2 class="section-title">Erfahrung, die<br>Ergebnisse liefert.</h2>
+        <p>Orca Engineering ist ein spezialisiertes Engineering- und Beratungsunternehmen mit Sitz in Duisburg. Wir stehen für die Verbindung aus tiefem handwerklichem Ingenieurswissen und modernstem technologischen Know-how.</p>
+        <p>Unsere Kunden kommen aus dem Fahrzeug-, Schiffs- und Luftfahrtbau, aus produzierenden Unternehmen des Mittelstands und aus Industrien, die maßgeschneiderte Lösungen jenseits der Stangenware benötigen.</p>
+        <p>Wir denken nicht in Abteilungen – wir denken in Projekten und in Ergebnissen. Unser interdisziplinärer Ansatz kombiniert Materialwissenschaft, Betriebswirtschaft und Softwaretechnik zu einer einzigartigen Beratungskompetenz.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-title">Präzision</div>
+            <div class="pillar-sub">Technische Exzellenz in jedem Detail jedes Projekts</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Pragmatismus</div>
+            <div class="pillar-sub">Lösungen, die in der Praxis funktionieren</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Innovation</div>
+            <div class="pillar-sub">Modernste Technologien, klug eingesetzt</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Verlässlichkeit</div>
+            <div class="pillar-sub">Langfristige Partnerschaft statt kurzer Einsatz</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="container">
+    <div class="expertise-grid">
+      <div class="expertise-sticky reveal">
+        <span class="tag">Fachgebiete</span>
+        <h2 class="section-title">Was wir<br>wirklich<br>können.</h2>
+        <p class="section-lead" style="margin-top:1.2rem;">Keine Berater von der Stange. Echte Erfahrung aus Projekten, die zählen.</p>
+      </div>
+      <div class="expertise-list">
+        <div class="expertise-item reveal">
+          <div class="expertise-item-num">01</div>
+          <div>
+            <div class="expertise-item-title">Composite-Entwicklung & Fertigungsbegleitung</div>
+            <p class="expertise-item-desc">Wir begleiten Projekte von der ersten Skizze bis zum fertigen Bauteil. Materialauswahl, Lagenaufbau, Werkzeugkonzept, Prozessparameter – alles aus einer Hand, mit Erfahrung aus Luft-, Raumfahrt, Yachtbau und Automobil.</p>
+            <div class="tech-pills">
+              <span class="tech-pill">CfK / GfK</span>
+              <span class="tech-pill">Prepreg</span>
+              <span class="tech-pill">Vakuuminfusion</span>
+              <span class="tech-pill">Autoklav</span>
+              <span class="tech-pill">FEM</span>
+            </div>
+          </div>
+        </div>
+        <div class="expertise-item reveal reveal-delay-1">
+          <div class="expertise-item-num">02</div>
+          <div>
+            <div class="expertise-item-title">Turnaround & Finanzrestrukturierung</div>
+            <p class="expertise-item-desc">Wenn Unternehmen in die Krise geraten, brauchen sie Klarheit und Geschwindigkeit. Wir analysieren schnell, entwickeln belastbare Sanierungskonzepte und setzen diese operativ mit um – als Interim-Manager oder begleitender Berater.</p>
+            <div class="tech-pills">
+              <span class="tech-pill">Liquiditätsplanung</span>
+              <span class="tech-pill">BWA-Analyse</span>
+              <span class="tech-pill">Gläubigermanagement</span>
+              <span class="tech-pill">Prozessoptimierung</span>
+            </div>
+          </div>
+        </div>
+        <div class="expertise-item reveal reveal-delay-2">
+          <div class="expertise-item-num">03</div>
+          <div>
+            <div class="expertise-item-title">Individuelle Software & KI-Integration</div>
+            <p class="expertise-item-desc">Standardsoftware löst keine individuellen Probleme. Wir entwickeln Anwendungen, die exakt auf Ihre Prozesse zugeschnitten sind – von der Produktionsplanung über ERP-Systeme bis zu KI-gestützten Analysetools.</p>
+            <div class="tech-pills">
+              <span class="tech-pill">React / TypeScript</span>
+              <span class="tech-pill">Node.js</span>
+              <span class="tech-pill">KI / LLM</span>
+              <span class="tech-pill">Three.js</span>
+              <span class="tech-pill">PWA</span>
+            </div>
+          </div>
+        </div>
+        <div class="expertise-item reveal reveal-delay-3">
+          <div class="expertise-item-num">04</div>
+          <div>
+            <div class="expertise-item-title">Technische Beratung im Spezialschiff- & Bootsbau</div>
+            <p class="expertise-item-desc">Elektrifizierung, Antriebsmodernisierung und strukturelle Optimierung von Yachten und kleinen Berufsschiffen. Wir sprechen die Sprache der Werften und kennen die Anforderungen der Klassifikationsgesellschaften.</p>
+            <div class="tech-pills">
+              <span class="tech-pill">HV-Antriebe</span>
+              <span class="tech-pill">Yacht-Refit</span>
+              <span class="tech-pill">Elektrifizierung</span>
+              <span class="tech-pill">Strukturanalyse</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center; max-width:600px; margin:0 auto 5rem;">
+      <span class="tag" style="justify-content:center;">Unser Vorgehen</span>
+      <h2 class="section-title">Strukturiert.<br>Zielorientiert.</h2>
+      <p class="section-lead" style="max-width:100%;">Jedes Projekt beginnt mit Zuhören. Dann folgt präzises Handeln.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-step-dot"></div>
+        <div class="process-step-num">SCHRITT 01</div>
+        <div class="process-step-title">Analyse & Briefing</div>
+        <p class="process-step-desc">Tiefes Verständnis Ihrer Ausgangssituation, Ziele und Rahmenbedingungen. Kein Templating – nur echtes Zuhören.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step-dot"></div>
+        <div class="process-step-num">SCHRITT 02</div>
+        <div class="process-step-title">Konzept & Strategie</div>
+        <p class="process-step-desc">Entwicklung eines maßgeschneiderten Lösungskonzepts mit klaren Meilensteinen, Verantwortlichkeiten und KPIs.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step-dot"></div>
+        <div class="process-step-num">SCHRITT 03</div>
+        <div class="process-step-title">Umsetzung</div>
+        <p class="process-step-desc">Operative Begleitung durch erfahrene Experten. Wir arbeiten in Ihrem Team, nicht am Schreibtisch weit weg.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step-dot"></div>
+        <div class="process-step-num">SCHRITT 04</div>
+        <div class="process-step-title">Transfer & Skalierung</div>
+        <p class="process-step-desc">Nachhaltige Verankerung der Ergebnisse. Ihr Team übernimmt – wir bleiben als Partner ansprechbar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <span class="tag reveal">Kontakt aufnehmen</span>
+        <h2 class="section-title reveal">Bereit für das<br>nächste Projekt?</h2>
+        <p class="section-lead reveal">Sprechen Sie uns an. Das erste Gespräch ist unverbindlich und kostenfrei.</p>
+        <div class="contact-info" style="margin-top:3rem;">
+          <div class="contact-item reveal">
+            <div class="contact-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 4l6 5 6-5M2 4h12v8H2z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-item-label">E-Mail</div>
+              <a href="mailto:info@orca-eng.de" class="contact-item-value">info@orca-eng.de</a>
+            </div>
+          </div>
+          <div class="contact-item reveal reveal-delay-1">
+            <div class="contact-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M8 1C5.24 1 3 3.24 3 6c0 4.25 5 9 5 9s5-4.75 5-9c0-2.76-2.24-5-5-5z"/>
+                <circle cx="8" cy="6" r="1.5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Adresse</div>
+              <span class="contact-item-value">Schlickstraße 15, 47138 Duisburg</span>
+            </div>
+          </div>
+          <div class="contact-item reveal reveal-delay-2">
+            <div class="contact-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="1" y="1" width="14" height="14" rx="1"/>
+                <path d="M4 6h8M4 8h6M4 10h4"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Geschäftsführer</div>
+              <span class="contact-item-value">Sebastian Schmoll</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Vorname</label>
+              <input type="text" class="form-input" placeholder="Max">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nachname</label>
+              <input type="text" class="form-input" placeholder="Mustermann">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-Mail</label>
+            <input type="email" class="form-input" placeholder="max@firma.de">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bereich</label>
+            <select class="form-input" style="appearance:none; cursor:pointer;">
+              <option value="">Bitte wählen …</option>
+              <option>CfK & Leichtbau</option>
+              <option>Unternehmensrestrukturierung & Sanierung</option>
+              <option>Softwareentwicklung & Individuelle Lösungen</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nachricht</label>
+            <textarea class="form-textarea" placeholder="Schildern Sie kurz Ihr Vorhaben oder Ihre Herausforderung …"></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 7h12M8 2l5 5-5 5"/>
+            </svg>
+            Nachricht senden
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-logo-text" style="font-family:var(--font-display); font-weight:700; font-size:1.05rem; letter-spacing:0.04em;">
+          ORCA <span style="color:var(--accent)">ENGINEERING</span>
+        </div>
+        <p class="footer-brand-text">Technische Exzellenz und strategische Weitsicht für Unternehmen, die mehr erwarten. Made in Germany.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Leistungen</div>
+        <ul class="footer-links">
+          <li><a href="#services">CfK & Leichtbau</a></li>
+          <li><a href="#services">Restrukturierung</a></li>
+          <li><a href="#services">Softwareentwicklung</a></li>
+          <li><a href="#expertise">Alle Fachgebiete</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Unternehmen</div>
+        <ul class="footer-links">
+          <li><a href="#about">Über uns</a></li>
+          <li><a href="#process">Vorgehen</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <ul class="footer-links">
+          <li><a href="mailto:info@orca-eng.de">info@orca-eng.de</a></li>
+          <li><a href="#">Schlickstraße 15</a></li>
+          <li><a href="#">47138 Duisburg</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        © 2025 Orca Engineering UG (haftungsbeschränkt) · Alle Rechte vorbehalten<br>
+        HRB 37748 Amtsgericht Duisburg · USt-ID: DE453977160
+      </div>
+      <div class="footer-legal">
+        <a href="#" onclick="openModal('impressum'); return false;">Impressum</a>
+        <a href="#" onclick="openModal('datenschutz'); return false;">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- IMPRESSUM MODAL -->
+<div class="modal-overlay" id="modal-impressum" onclick="closeModalOnBg(event, 'impressum')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('impressum')">✕</button>
+    <div class="modal-title">Impressum</div>
+    <div class="modal-section-title">Angaben gemäß § 5 TMG</div>
+    <div class="modal-text">
+      Orca Engineering UG (haftungsbeschränkt)<br>
+      Schlickstraße 15<br>
+      47138 Duisburg<br>
+      Deutschland
+    </div>
+    <div class="modal-section-title">Vertreten durch</div>
+    <div class="modal-text">Geschäftsführer: Sebastian Schmoll</div>
+    <div class="modal-section-title">Registereintrag</div>
+    <div class="modal-text">
+      Handelsregister: HRB 37748<br>
+      Registergericht: Amtsgericht Duisburg
+    </div>
+    <div class="modal-section-title">Umsatzsteuer-ID</div>
+    <div class="modal-text">
+      Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>
+      DE453977160
+    </div>
+    <div class="modal-section-title">Kontakt</div>
+    <div class="modal-text">
+      E-Mail: <a href="mailto:info@orca-eng.de">info@orca-eng.de</a><br>
+      Web: <a href="https://www.orca-eng.de">www.orca-eng.de</a>
+    </div>
+    <div class="modal-section-title">Haftungsausschluss</div>
+    <div class="modal-text">
+      Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann keine Gewähr übernommen werden.
+    </div>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="modal-overlay" id="modal-datenschutz" onclick="closeModalOnBg(event, 'datenschutz')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('datenschutz')">✕</button>
+    <div class="modal-title">Datenschutz­erklärung</div>
+    <div class="modal-section-title">Verantwortlicher</div>
+    <div class="modal-text">
+      Orca Engineering UG (haftungsbeschränkt)<br>
+      Schlickstraße 15, 47138 Duisburg<br>
+      <a href="mailto:info@orca-eng.de">info@orca-eng.de</a>
+    </div>
+    <div class="modal-section-title">Erhebung und Speicherung personenbezogener Daten</div>
+    <div class="modal-text">
+      Beim Besuch dieser Website werden automatisch Informationen allgemeiner Natur erhoben (Server-Logfiles). Diese Informationen (Browsertyp, Betriebssystem, Referrer-URL, Uhrzeit) lassen keinen Rückschluss auf Ihre Person zu.
+    </div>
+    <div class="modal-section-title">Kontaktformular</div>
+    <div class="modal-text">
+      Daten, die über das Kontaktformular übermittelt werden, werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.
+    </div>
+    <div class="modal-section-title">Ihre Rechte</div>
+    <div class="modal-text">
+      Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie das Recht auf Datenübertragbarkeit. Wenden Sie sich dazu an: <a href="mailto:info@orca-eng.de">info@orca-eng.de</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── SCROLL REVEAL ───
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// ─── MODAL ───
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOnBg(e, id) {
+  if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['impressum','datenschutz'].forEach(id => closeModal(id));
+  }
+});
+
+// ─── FORM ───
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ Nachricht gesendet!';
+  btn.style.background = '#0e9a7e';
+  setTimeout(() => {
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M8 2l5 5-5 5"/></svg>Nachricht senden`;
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+}
+
+// ─── NAV SHRINK ───
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.padding = window.scrollY > 60 ? '0.9rem 2.5rem' : '1.4rem 2.5rem';
+});
+
+// ─── HAMBURGER ───
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  const cta = document.querySelector('.nav-cta');
+  if (links) {
+    const visible = links.style.display === 'flex';
+    links.style.cssText = visible ? '' : 'display:flex;flex-direction:column;position:fixed;top:70px;right:0;background:var(--bg2);padding:2rem;gap:1.5rem;border-left:1px solid var(--border);z-index:998;';
+    if (cta) cta.style.display = visible ? 'none' : 'block';
+  }
+}
+</script>
+</body>
+</html>
